@@ -414,7 +414,7 @@ static Vector get_nested_source(Vector source, int start) {
 	Vector nested = vector_create(0, NULL);
 	for(int i = start; i < vector_size(source); i++) {
 		String line = vector_get_at(source, i);
-		if(line[0] != '\t' && line[0] != '\0' && line[0] != '#' && line[0] != '\n')
+		if(line[0] != '\t' && line[0] != '\0' && line[0] != '#' && line[0] != '\n'&& line[0] != '\r')
 			break;
 		vector_insert_last(nested, line + (line[0] == '\t' ? 1 : 0));	// skip initial tab
 	}
@@ -439,7 +439,7 @@ static Program parse(Vector source, Runtime runtime) {
 		// split in tokens
 		String tokens[6] = {NULL, NULL, NULL, NULL, NULL, NULL};
 		int token_n = 0;
-		for(String token = strtok(line, " \t\n"); token_n < 6 && token != NULL && token[0] != '#'; token = strtok(NULL, " \t\n"))
+		for(String token = strtok(line, " \t\n\r"); token_n < 6 && token != NULL && token[0] != '#'; token = strtok(NULL, " \t\n\r"))
 			tokens[token_n++] = token;
 
 		if(token_n == 0)
