@@ -414,9 +414,9 @@ static Vector get_nested_source(Vector source, int start) {
 	Vector nested = vector_create(0, NULL);
 	for(int i = start; i < vector_size(source); i++) {
 		String line = vector_get_at(source, i);
-		if(line[0] != '\t' && line[0] != '\0' && line[1] != '#')
+		if(line[0] != '\t' && line[0] != '\0' && line[0] != '#' && line[0] != '\n')
 			break;
-		vector_insert_last(nested, line+1);
+		vector_insert_last(nested, line + (line[0] == '\t' ? 1 : 0));	// skip initial tab
 	}
 	return nested;
 }
