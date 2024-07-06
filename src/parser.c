@@ -22,14 +22,19 @@ void parser_free(Pointer p, Runtime runtime) {
 
 // if token is of the form array[foo], it transforms it to array\0\foo\0 and returns foo
 static String array_index(String token) {
-	String bracket = strstr(token, "[");
-	if(!bracket)
-		return NULL;
+    if (token == NULL) {
+        return NULL;
+    }
 
-	String index = bracket + 1;
-	*bracket = '\0';
-	index[strlen(index)-1] = '\0';
-	return index;
+    char* bracket = strstr(token, "[");
+    if (!bracket) {
+        return NULL;
+    }
+
+    char* index = bracket + 1;
+    *bracket = '\0';
+    index[strlen(index) - 1] = '\0';
+    return index;
 }
 
 static int* create_or_get_variable(String name, Runtime runtime) {
